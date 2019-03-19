@@ -1,0 +1,113 @@
+commit a2f64126fdc3652815ae5e6820730bef3ed26604
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:44:54 2019 +0200
+
+    peruutuksia ja muokkauksia
+
+ tiedostoja/file2.txt                 | 0
+ tiedostoja/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 13b0c2158b7d22d0cc1d684620edc79e0335cc06
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:40:48 2019 +0200
+
+    tiedostoja lisätty
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 259f3b7237fbd94b6a61ebe579d5e1d12356f81f
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:35:42 2019 +0200
+
+    muokkausta
+
+ eka.txt    | 2 +-
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 5247d8e4373963615d3cdf4a2c039e118c9c9615
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:33:37 2019 +0200
+
+    nimen muutos
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 93c2cf056a8ef9d0057204d679f8094c94c538f4
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:32:40 2019 +0200
+
+    poistettu toinen
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 55f7db491209c8fcc36670d4cdb7a6619769f291
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:30:27 2019 +0200
+
+    tekstin muokkaus
+
+ tiedosto.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 650c1087a3177886876cb9b4d2b38e1b6dfa9f60
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:29:16 2019 +0200
+
+    teksti lisäys
+
+ tiedosto.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2718b89b50170f09f2d97677ef2f1e6edf26c7c6
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:25:33 2019 +0200
+
+    kansio + tiedosto
+
+ stuff/jokin.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 522bf168c6147e5c0bf91be9829ddfbf28058196
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:24:30 2019 +0200
+
+    muutettu kolmas ja toinen
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 3c56569e3930b39cd00f14c8aa6bf57487a07619
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:22:56 2019 +0200
+
+    kolmas,txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c41311e5511081ba66e73f4fcdae0e3923a6dd27
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:20:45 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 2d15964c82343f059dce208e09f7d96a079009f9
+Author: samilait <sami.p.laitinen@gmail.com>
+Date:   Tue Mar 19 22:17:01 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
