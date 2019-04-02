@@ -1,5 +1,6 @@
-package jaakiekkotilastointi.jaakiekkotilastointi;
+    package jaakiekkotilastointi.jaakiekkotilastointi;
 
+import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,11 @@ public class MainApp extends Application {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        
+        DataLoader loader = new DataLoader();
+        loader.LoadPlayers("C:\\Users\\Sami\\Documents\\Opinnot TK\\ot-harjoitustyo\\jaakiekkotilastointi\\hifk.csv");
+        
         launch(args);
     }
 
