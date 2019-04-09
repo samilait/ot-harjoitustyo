@@ -25,10 +25,22 @@ public class FXMLController implements Initializable {
     private TableColumn<Player, String> positionColumnHome;
     @FXML
     private TableColumn<Player, Integer> lineColumnHome;
+    @FXML
+    private TableView<Player> tableAway;
+    @FXML
+    private TableColumn<Player, Integer> numberColumnAway;
+    @FXML
+    private TableColumn<Player, String> nameColumnAway;
+    @FXML
+    private TableColumn<Player, String> positionColumnAway;
+    @FXML
+    private TableColumn<Player, Integer> lineColumnAway;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        // Home team players
         numberColumnHome.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
         nameColumnHome.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         positionColumnHome.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
@@ -38,6 +50,20 @@ public class FXMLController implements Initializable {
         
         try {
             tableHome.setItems(dr.loadPlayers());
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Away team players
+        numberColumnAway.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
+        nameColumnAway.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+        positionColumnAway.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+        lineColumnAway.setCellValueFactory(new PropertyValueFactory<Player, Integer>("line"));
+        
+        dr = new DataReader("away.csv");
+        
+        try {
+            tableAway.setItems(dr.loadPlayers());
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
