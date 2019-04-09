@@ -1,0 +1,5 @@
+Kaavio1:
+
+%2F%2F Cool Class Diagram, [Lauta]1-*[Pelaaja],[Lauta]1-*[Ruutu],[Nappula]1-1[Pelaaja],[Ruutu]1-*[Nappula],[Noppa]*-*[Pelaaja]
+
+Kaavio2:
