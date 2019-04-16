@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import icehockeystats.Player;
+import icehockeystats.domain.Player;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

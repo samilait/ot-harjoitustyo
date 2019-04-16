@@ -5,6 +5,7 @@
  */
 package icehockeystats;
 
+import icehockeystats.domain.Player;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

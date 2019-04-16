@@ -77,7 +77,12 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutX="704.0" layoutY="130.0" prefHeight="138.0" prefWidth="147.0" text="Toiminnot">
+                        <TitledPane animated="false" collapsible="false" layoutX="704.0" layoutY="130.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Koti)">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" collapsible="false" layoutX="704.0" layoutY="324.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Vieras)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
                            </content>
