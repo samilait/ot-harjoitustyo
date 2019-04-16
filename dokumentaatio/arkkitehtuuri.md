@@ -14,4 +14,10 @@ Pakkaus _icehockeystats_ pitää sisällään käyttöliittymän kontrollitoiminnot. Pak
 
 ## Tietojen pysyväistallennus
 
- 
+### Päätoiminnallisuudet
+
+#### Sovelluksen käynnistys
+
+Kun sovellus käynnistetään, niin koti- ja vierasjoukkueiden pelaajat (Nimi, pelinumero, pelipaikka, kentällinen) luetaan tekstitiedostosta käyttöliittymän tableView -näkymiin. Käyttäjä voi tarvittaessa muokata pelaajaluetteloita.
+
+![Sekvenssikaavio](https://github.com/samilait/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/OT-Sekvenssi1.png)
