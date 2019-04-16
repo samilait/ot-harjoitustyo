@@ -47,7 +47,7 @@ public class FXMLController implements Initializable {
         positionColumnHome.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
         lineColumnHome.setCellValueFactory(new PropertyValueFactory<Player, Integer>("line"));
         
-        DataReader dr = new DataReader("home.csv");
+        DataReader dr = new DataReader("home.txt");
         
         try {
             tableHome.setItems(dr.loadPlayers());
@@ -61,7 +61,7 @@ public class FXMLController implements Initializable {
         positionColumnAway.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
         lineColumnAway.setCellValueFactory(new PropertyValueFactory<Player, Integer>("line"));
         
-        dr = new DataReader("away.csv");
+        dr = new DataReader("away.txt");
         
         try {
             tableAway.setItems(dr.loadPlayers());

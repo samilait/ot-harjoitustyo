@@ -12,6 +12,8 @@ Sovellus on tarkoitettu jääkiekko-ottelun tapahtumien kirjaamiseen. Sovellukse
 
 ## Releaset
 
+- [Viikko 5](https://github.com/samilait/ot-harjoitustyo/releases/tag/viikko5) 
+
 ## Komentorivitoiminnot
 
 ### Testaus
