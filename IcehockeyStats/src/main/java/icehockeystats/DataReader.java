@@ -32,7 +32,7 @@ public class DataReader {
         
         String line;
         
-        while((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null) {
             String[] values = line.split(",");            
             Player player = new Player(values[0], values[1], Integer.parseInt(values[2]), values[3], Integer.parseInt(values[4]));
             players.add(player);
