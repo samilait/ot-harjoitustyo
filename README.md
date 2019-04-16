@@ -14,5 +14,7 @@ Sovellus on tarkoitettu jääkiekko-ottelun tapahtumien kirjaamiseen. Sovellukse
 
 ### Testaus
 Testit suoritetaan komennolla: mvn test
+
 Testikattavuusraportti luodaan komennolla: mvn jacoco:report
+
 Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto *target/site/jacoco/index.html*
