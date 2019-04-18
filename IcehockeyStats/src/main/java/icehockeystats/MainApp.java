@@ -1,11 +1,14 @@
 package icehockeystats;
 
+import icehockeystats.domain.Clock;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class MainApp extends Application {
@@ -30,8 +33,16 @@ public class MainApp extends Application {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         launch(args);
+//        Clock clock = new Clock();
+//        
+//        for(int i = 0; i < 10; i++) {
+//            clock.show();
+//            clock.tick();
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+        
     }
 
 }

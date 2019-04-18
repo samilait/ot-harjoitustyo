@@ -1,0 +1,22 @@
+Käynnistä:
+- Lataa joukkueiden kokokoonpanot
+- Alusta pelaajat maalintekijä- ja rangaistusvalikoihin ja maalivahteihin
+- Aseta erän pituus
+
+Aloita ottelu:
+- Aseta alkamisaika
+- Erä = 1, Tilanne 0 - 0
+
+Maali:
+- Pelaaja: maali, syöttö
+- Joukkue: maali
+- Ottelu: Tekoaika, tilanne
+
+Rangaistus:
+- Pelaaja: kesto, syy
+- Joukkue: -
+- Ottelu: alkuaika, päättymisaika (päättyy jos YV maali)
+
+Ottelun päättyminen:
+- Ottelu: Päättymisaika
+- Ottelu: Yleisömäärä
