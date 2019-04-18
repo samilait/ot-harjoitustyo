@@ -1,7 +1,7 @@
-# Työaikakirjanpito
+# TyÃ¶aikakirjanpito
 
-- 26.3.2019: 3h, Testausharjoittelu ja vaatimusmäärittely
-- 8.4.2019: 3h, Käyttöliittymän (FXML) opiskelua
-- 9.4.2019: 4h, Projekti uusiksi (GUI uusiksi). Nyt näyttää toimivan
-- 15.4.2019: 3h, Käyttöliittymän kehitystä
-- 16.4.2019: 3h, Testejä ja käyttöliittymän parannusta, toiminnallisuutta
+- 26.3.2019: 3h, Testausharjoittelu ja vaatimusmÃ¤Ã¤rittely
+- 8.4.2019: 3h, KÃ¤yttÃ¶liittymÃ¤n (FXML) opiskelua
+- 9.4.2019: 4h, Projekti uusiksi (GUI uusiksi). Nyt nÃ¤yttÃ¤Ã¤ toimivan
+- 15.4.2019: 3h, KÃ¤yttÃ¶liittymÃ¤n kehitystÃ¤
+- 16.4.2019: 3h, Testi ja kÃ¤yttÃ¶liittymÃ¤n parannusta, toiminnallisuutta, dokumentaatio: Pakkaus- ja sekvenssikaavio
