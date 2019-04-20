@@ -53,12 +53,13 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label layoutX="74.0" layoutY="29.0" prefHeight="46.0" prefWidth="97.0" text="00:00">
+                                    <Label fx:id="lbClock" layoutX="82.0" layoutY="29.0" prefHeight="46.0" prefWidth="97.0" text="00:00" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="157.0" layoutY="31.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="74.0" text="Käynnistä" />
+                                    <Button fx:id="btnStartClock" layoutX="5.0" layoutY="31.0" mnemonicParsing="false" onAction="#startClock" prefHeight="41.0" prefWidth="74.0" text="Käynnistä" />
+                                    <Button fx:id="btnStopClock" layoutX="163.0" layoutY="31.0" mnemonicParsing="false" onAction="#stopClock" prefHeight="41.0" prefWidth="74.0" text="Pysäytä" />
                                  </children></AnchorPane>
                           </content>
                         </TitledPane>

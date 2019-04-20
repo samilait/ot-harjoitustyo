@@ -47,10 +47,15 @@ public class Clock {
         return "" + digitMinutes + ":" + digitSeconds;
     }
     
+    public void waitSecond() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+    }
+    
     public void reset() {
         this.seconds = 0;
         this.minutes = 0;
         this.hours = 0;        
     }
+         
     
 }
