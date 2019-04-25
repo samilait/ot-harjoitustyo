@@ -101,7 +101,20 @@
                         </TitledPane>
                         <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="130.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="tableScoreHome" prefHeight="130.0" prefWidth="386.0">
+                                      <columns>
+                                        <TableColumn fx:id="goalColumnHome" prefWidth="28.000000774860382" text="#" />
+                                        <TableColumn fx:id="goalTimeColumnHome" prefWidth="54.39999008178711" text="Aika" />
+                                          <TableColumn fx:id="scorerColumnHome" prefWidth="48.0" text="Teki" />
+                                          <TableColumn fx:id="assistant1ColumnHome" prefWidth="63.20001220703125" text="1 syöttö" />
+                                          <TableColumn fx:id="assistant2ColumnHome" prefWidth="66.40003967285156" text="2 syöttö" />
+                                          <TableColumn fx:id="goalTypeColumnHome" prefWidth="75.0" text="Tyyppi" />
+                                      </columns>
+                                    </TableView>
+                                    <Button fx:id="btnAddGoalHome" layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onAction="#addGoalHome" prefHeight="26.0" prefWidth="97.0" text="Lisää..." />
+                                 </children></AnchorPane>
                            </content>
                         </TitledPane>
                         <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
