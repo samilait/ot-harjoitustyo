@@ -18,7 +18,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="500.0">
                      <children>
-                        <Label layoutX="179.0" layoutY="273.0" text="Vierasjoukkue" />
+                        <Label fx:id="lbRosterAwayTeamName" layoutX="179.0" layoutY="273.0" text="Vierasjoukkue" />
                         <TableView fx:id="tableHome" layoutX="179.0" layoutY="30.0" prefHeight="234.0" prefWidth="398.0">
                           <columns>
                             <TableColumn fx:id="numberColumnHome" prefWidth="48.800010681152344" text="Nro" />
@@ -35,7 +35,7 @@
                               <TableColumn fx:id="lineColumnAway" prefWidth="78.4000244140625" text="Kenttä" />
                            </columns>
                         </TableView>
-                        <Label layoutX="179.0" layoutY="5.0" text="Kotijoukkue" />
+                        <Label fx:id="lbRosterHomeTeamName" layoutX="179.0" layoutY="5.0" text="Kotijoukkue" />
                      </children>
                   </AnchorPane>
             </content>
@@ -44,7 +44,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="848.0">
                      <children>
-                        <TitledPane animated="false" collapsible="false" layoutX="388.0" layoutY="324.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Vieras)">
+                        <TitledPane fx:id="tpPenaltiesAway" animated="false" collapsible="false" layoutX="388.0" layoutY="324.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Vieras)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                            </content>
@@ -65,35 +65,61 @@
                         </TitledPane>
                         <TitledPane animated="false" collapsible="false" layoutX="247.0" prefHeight="130.0" prefWidth="247.0" text="Tilanne">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="lbClock1" layoutX="74.0" prefHeight="46.0" prefWidth="97.0" text="  0 - 0" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lbStatusHomeTeamName" layoutX="25.0" prefHeight="46.0" prefWidth="59.0" text="Koti" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lbStatusAwayTeamName" layoutX="172.0" prefHeight="46.0" prefWidth="74.0" text="Vieras" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lbClock112" layoutX="92.0" layoutY="46.0" prefHeight="46.0" prefWidth="59.0" text="Erä: 1" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children></AnchorPane>
                            </content>
                         </TitledPane>
                         <TitledPane animated="false" collapsible="false" layoutX="494.0" prefHeight="130.0" prefWidth="210.0" text="Toiminnot">
                            <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0">
+                                 <children>
+                                    <Button fx:id="btnStopClock1" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#stopClock" prefHeight="42.0" prefWidth="104.0" text="Aloita ottelu" />
+                                    <Button fx:id="btnStopClock11" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#stopClock" prefHeight="42.0" prefWidth="104.0" text="Aloita erä" />
+                                 </children></AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="130.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="tpGoalsAway" animated="false" collapsible="false" layoutY="323.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Vieras)">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="tpGoaliesHome" animated="false" collapsible="false" layoutX="704.0" layoutY="130.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Koti)">
+                           <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutY="130.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutY="323.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Vieras)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutX="704.0" layoutY="130.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Koti)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutX="704.0" layoutY="324.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Vieras)">
+                        <TitledPane fx:id="tpGoaliesAway" animated="false" collapsible="false" layoutX="704.0" layoutY="324.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Vieras)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
                            </content>

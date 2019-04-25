@@ -56,6 +56,12 @@ public class Match {
     public void setAudience(Integer audience) {
         this.audience = audience;
     }
+
+    @Override
+    public String toString() {
+        return this.homeTeam.getGoals() + " - " + this.awayTeam.getGoals();
+    }
+    
     
     
     

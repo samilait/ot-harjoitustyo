@@ -75,4 +75,12 @@ public class Player {
         return firstName + " " + lastName;
     }
     
+    public void addGoal() {
+        this.goals++;
+    }
+    
+    public void addPass() {
+        this.passes++; 
+    }
+    
 }

@@ -5,7 +5,9 @@
  */
 package icehockeystats.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -15,18 +17,28 @@ public class Team {
 
     private String name;
     private boolean home;
-    private ArrayList<Player> players;
+    private HashMap<Integer, Player> players;
+    private int goals;
 
     public Team(String name, boolean home) {
         this.name = name;
         this.home = home;
-        
-        this.players = new ArrayList<>();
-        
+        this.goals = 0;
+        this.players = new HashMap<>();        
     }
     
-    public void addPlayer(Player player) {
-        this.players.add(player);
+    public void addPlayer(Integer number, Player player) {
+        this.players.put(number, player);
     }
     
+    public void addGoal(Integer scorer, Player assistant1, Player assistant2) {
+        this.goals++;
+        this.players.get(scorer).addGoal();
+        this.players.get(assistant1).addPass();
+        this.players.get(assistant2).addPass();
+    }
+    
+    public int getGoals() {
+        return this.goals;
+    }
 }

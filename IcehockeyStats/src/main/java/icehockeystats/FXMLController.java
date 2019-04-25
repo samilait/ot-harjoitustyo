@@ -15,9 +15,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import icehockeystats.domain.*;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TitledPane;
 //import javafx.concurrent.Task;
 //import javafx.concurrent.WorkerStateEvent;
 //import javafx.event.EventHandler;
@@ -26,6 +29,7 @@ public class FXMLController implements Initializable {
     
     private Clock clock;
     private boolean clockRunning;
+    private Match match;
 //    static Thread thread = new Thread();
     
     @FXML
@@ -54,10 +58,31 @@ public class FXMLController implements Initializable {
     private Button btnStartClock;
     @FXML
     private Button btnStopClock;
+    @FXML
+    private Label lbRosterAwayTeamName;
+    @FXML
+    private Label lbRosterHomeTeamName;
+    @FXML
+    private Label lbStatusAwayTeamName;
+    @FXML
+    private Label lbStatusHomeTeamName;
+    @FXML
+    private TitledPane tpPenaltiesAway;
+    @FXML
+    private TitledPane tpGoalsHome;
+    @FXML
+    private TitledPane tpPenaltiesHome;
+    @FXML
+    private TitledPane tpGoalsAway;
+    @FXML
+    private TitledPane tpGoaliesHome;
+    @FXML
+    private TitledPane tpGoaliesAway;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
         
         // Initialise clock
 //        this.thread = new Thread();
@@ -72,11 +97,35 @@ public class FXMLController implements Initializable {
         
         DataReader dr = new DataReader("home.txt");
         
+        // Set team names
+        String homeTeamName = "";
         try {
-            tableHome.setItems(dr.loadPlayers());
+            homeTeamName = dr.loadTeamName();
+            lbRosterHomeTeamName.setText(homeTeamName);
+            lbStatusHomeTeamName.setText(homeTeamName);
+            tpGoalsHome.setText("Maalit (" + homeTeamName + ")");
+            tpPenaltiesHome.setText("Rangaistukset (" + homeTeamName + ")");
+            tpGoaliesHome.setText("Maalivahdit (" + homeTeamName + ")");
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Team homeTeam = new Team(homeTeamName, true);
+        
+        ObservableList<Player> playerList;
+        try {
+            playerList = dr.loadPlayers();
+            
+            for(int i = 0; i < playerList.size(); i++) {
+                Player player = playerList.get(i);
+                homeTeam.addPlayer(player.getNumber(), player);
+            }
+
+            tableHome.setItems(playerList);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                        
 
         // Away team players
         numberColumnAway.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
@@ -85,18 +134,45 @@ public class FXMLController implements Initializable {
         lineColumnAway.setCellValueFactory(new PropertyValueFactory<Player, Integer>("line"));
         
         dr = new DataReader("away.txt");
+
+        // Set team names
+        String awayTeamName = "";
         
         try {
-            tableAway.setItems(dr.loadPlayers());
+            awayTeamName = dr.loadTeamName();
+            lbRosterAwayTeamName.setText(awayTeamName);
+            lbStatusAwayTeamName.setText(awayTeamName);
+            tpGoalsAway.setText("Maalit (" + awayTeamName + ")");
+            tpPenaltiesAway.setText("Rangaistukset (" + awayTeamName + ")");
+            tpGoaliesAway.setText("Maalivahdit (" + awayTeamName + ")");
+
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Team awayTeam = new Team(awayTeamName, false);
+        
+        try {
+            playerList = dr.loadPlayers();
+            
+            for(int i = 0; i < playerList.size(); i++) {
+                Player player = playerList.get(i);
+                awayTeam.addPlayer(player.getNumber(), player);
+            }
+
+            tableAway.setItems(playerList);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.match = new Match(homeTeam, awayTeam);
 
     }    
 
     @FXML
     private void startClock(ActionEvent event) {
         
+        // Start clock        
         this.clockRunning = true;
         
         Thread thread = new Thread(new Runnable() {
@@ -118,15 +194,16 @@ public class FXMLController implements Initializable {
                     }
 
                     // UI update is run on the Application thread
-                    Platform.runLater(updater);
+                    if (clockRunning) {
+                        Platform.runLater(updater);
+                    }
                 }
             }
 
         });
         // don't let thread prevent JVM shutdown
         thread.setDaemon(true);
-        thread.start();        
-
+        thread.start();      
         
     }
 
@@ -136,6 +213,7 @@ public class FXMLController implements Initializable {
     }
     
     private void clockTick() {
+        // Clock tick one second and output time to clock display
         clock.tick();
         lbClock.setText(clock.show());
     }

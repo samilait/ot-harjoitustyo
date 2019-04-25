@@ -31,6 +31,7 @@ public class DataReader {
         BufferedReader br = new BufferedReader(new FileReader(this.fileName));
         
         String line;
+        String header = br.readLine();
         
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");            
@@ -39,6 +40,14 @@ public class DataReader {
         }
         
         return players;
+    }
+    
+    public String loadTeamName() throws FileNotFoundException, IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader(this.fileName));
+        
+        return br.readLine();
+        
     }
     
 }
