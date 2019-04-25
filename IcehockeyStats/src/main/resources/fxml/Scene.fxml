@@ -67,7 +67,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="lbClock1" layoutX="74.0" prefHeight="46.0" prefWidth="97.0" text="  0 - 0" textAlignment="CENTER">
+                                    <Label fx:id="lbScore" layoutX="74.0" prefHeight="46.0" prefWidth="97.0" text="  0 - 0" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="30.0" />
                                        </font>
@@ -82,7 +82,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="lbClock112" layoutX="92.0" layoutY="46.0" prefHeight="46.0" prefWidth="59.0" text="Erä: 1" textAlignment="CENTER">
+                                    <Label fx:id="lbPeriod" layoutX="92.0" layoutY="46.0" prefHeight="46.0" prefWidth="59.0" text="Erä: 1" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -94,8 +94,8 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0">
                                  <children>
-                                    <Button fx:id="btnStopClock1" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#stopClock" prefHeight="42.0" prefWidth="104.0" text="Aloita ottelu" />
-                                    <Button fx:id="btnStopClock11" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#stopClock" prefHeight="42.0" prefWidth="104.0" text="Aloita erä" />
+                                    <Button fx:id="btnStartMatch" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#startMatch" prefHeight="42.0" prefWidth="104.0" text="Aloita ottelu" />
+                                    <Button fx:id="btnStartPeriod" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#startPeriod" prefHeight="42.0" prefWidth="104.0" text="Aloita erä" />
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>

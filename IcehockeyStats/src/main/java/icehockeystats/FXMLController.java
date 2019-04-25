@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import icehockeystats.domain.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -78,6 +79,14 @@ public class FXMLController implements Initializable {
     private TitledPane tpGoaliesHome;
     @FXML
     private TitledPane tpGoaliesAway;
+    @FXML
+    private Label lbScore;
+    @FXML
+    private Label lbPeriod;
+    @FXML
+    private Button btnStartMatch;
+    @FXML
+    private Button btnStartPeriod;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -165,7 +174,14 @@ public class FXMLController implements Initializable {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.match = new Match(homeTeam, awayTeam);
+        this.match = new Match(homeTeam, awayTeam);  // Initialise match
+        lbScore.setText(this.match.toString());      // Set initial score
+        lbPeriod.setText("Erä: " + Integer.toString(match.getPeriod()));
+        
+        // Buttons: active / inactive
+        btnStartPeriod.setDisable(true);
+        btnStartClock.setDisable(true);
+        btnStopClock.setDisable(true);
 
     }    
 
@@ -216,5 +232,20 @@ public class FXMLController implements Initializable {
         // Clock tick one second and output time to clock display
         clock.tick();
         lbClock.setText(clock.show());
+    }
+
+    @FXML
+    private void startMatch(ActionEvent event) {
+        this.match.setStartTime(new Date());
+        btnStartPeriod.setDisable(false);
+    }
+
+    @FXML
+    private void startPeriod(ActionEvent event) {
+        match.addPeriod();
+        lbPeriod.setText("Erä: " + Integer.toString(match.getPeriod()));
+        btnStartClock.setDisable(false);
+        btnStopClock.setDisable(false);
+
     }
 }

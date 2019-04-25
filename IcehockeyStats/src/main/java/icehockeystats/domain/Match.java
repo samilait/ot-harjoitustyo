@@ -17,14 +17,17 @@ public class Match {
     private Team awayTeam;
     private Date startTime;
     private Date endTime;
-    private Integer audience;
+    private int audience;
+    private int period;
+    private int periodLength;
 
     public Match(Team homeTeam, Team awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.period = 0;
+        this.periodLength = 15;
     }
-    
-    
+        
     public Team getHomeTeam() {
         return homeTeam;
     }
@@ -49,14 +52,22 @@ public class Match {
         this.endTime = endTime;
     }
 
-    public Integer getAudience() {
+    public int getAudience() {
         return audience;
     }
 
-    public void setAudience(Integer audience) {
+    public void setAudience(int audience) {
         this.audience = audience;
     }
 
+    public void addPeriod() {
+        this.period++;
+    }
+    
+    public int getPeriod() {
+        return this.period;
+    }
+    
     @Override
     public String toString() {
         return this.homeTeam.getGoals() + " - " + this.awayTeam.getGoals();
