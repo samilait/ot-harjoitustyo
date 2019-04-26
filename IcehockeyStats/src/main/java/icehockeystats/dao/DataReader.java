@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package icehockeystats;
+package icehockeystats.dao;
 
 import icehockeystats.domain.Player;
 import java.io.BufferedReader;

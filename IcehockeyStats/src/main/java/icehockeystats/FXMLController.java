@@ -1,5 +1,6 @@
 package icehockeystats;
 
+import icehockeystats.dao.DataReader;
 import icehockeystats.domain.Player;
 import java.io.IOException;
 import java.net.URL;
@@ -87,6 +88,22 @@ public class FXMLController implements Initializable {
     private Button btnStartMatch;
     @FXML
     private Button btnStartPeriod;
+    @FXML
+    private TableView<?> tableScoreHome;
+    @FXML
+    private TableColumn<?, ?> goalColumnHome;
+    @FXML
+    private TableColumn<?, ?> goalTimeColumnHome;
+    @FXML
+    private TableColumn<?, ?> scorerColumnHome;
+    @FXML
+    private TableColumn<?, ?> assistant1ColumnHome;
+    @FXML
+    private TableColumn<?, ?> assistant2ColumnHome;
+    @FXML
+    private TableColumn<?, ?> goalTypeColumnHome;
+    @FXML
+    private Button btnAddGoalHome;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -247,5 +264,9 @@ public class FXMLController implements Initializable {
         btnStartClock.setDisable(false);
         btnStopClock.setDisable(false);
 
+    }
+
+    @FXML
+    private void addGoalHome(ActionEvent event) {
     }
 }

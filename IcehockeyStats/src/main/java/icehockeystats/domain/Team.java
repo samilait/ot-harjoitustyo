@@ -31,7 +31,7 @@ public class Team {
         this.players.put(number, player);
     }
     
-    public void addGoal(Integer scorer, Player assistant1, Player assistant2) {
+    public void addGoal(Integer scorer, Integer assistant1, Integer assistant2) {
         this.goals++;
         this.players.get(scorer).addGoal();
         this.players.get(assistant1).addPass();
@@ -40,5 +40,9 @@ public class Team {
     
     public int getGoals() {
         return this.goals;
+    }
+    
+    public Player getPlayer(int number) {
+        return this.players.get(number);
     }
 }

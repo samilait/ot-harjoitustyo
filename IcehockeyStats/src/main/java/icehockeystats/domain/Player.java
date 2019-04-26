@@ -83,4 +83,12 @@ public class Player {
         this.passes++; 
     }
     
+    public void addSave() {
+        this.saves++;
+    }
+    
+    public long getTotalPoints() {
+        return this.goals + this.passes;
+    }
+    
 }
