@@ -11,6 +11,11 @@ import java.util.ArrayList;
  *
  * @author Sami
  */
+
+/**
+ * Luokka sisältää pelaajan tiedot ja toiminnallisuuden pelaajan pelitapahtumien tilastointiin
+ * @author Sami
+ */
 public class Player {
 
     private String firstName;
@@ -67,10 +72,18 @@ public class Player {
         return saves;
     }
 
+    /**
+     * Get player penalties
+     * @return list of penalties
+     */
     public ArrayList<Penalty> getPenalties() {
         return penalties;
     }
     
+    /**
+     * Get full player name
+     * @return first name + last name
+     */
     public String getName() {
         return firstName + " " + lastName;
     }
@@ -87,6 +100,10 @@ public class Player {
         this.saves++;
     }
     
+    /**
+     * Get total points
+     * @return total points: goals + passes
+     */
     public long getTotalPoints() {
         return this.goals + this.passes;
     }

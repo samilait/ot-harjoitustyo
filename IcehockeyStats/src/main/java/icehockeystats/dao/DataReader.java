@@ -14,16 +14,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
+ * Data reader for player lists
  * @author Sami
  */
 public class DataReader {
     private String fileName;
 
+    /**
+     * Data reader constructor
+     * @param fileName team name + playerlist file name
+     */
     public DataReader(String fileName) {
         this.fileName = fileName;
     }
     
+    /**
+     * Load playerlist
+     * @return Return list of players
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public ObservableList<Player> loadPlayers() throws FileNotFoundException, IOException {
         
         ObservableList<Player> players = FXCollections.observableArrayList();
@@ -42,6 +52,12 @@ public class DataReader {
         return players;
     }
     
+    /**
+     * Load team name
+     * @return Return team name
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public String loadTeamName() throws FileNotFoundException, IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(this.fileName));

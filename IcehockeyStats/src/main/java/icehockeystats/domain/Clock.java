@@ -7,7 +7,7 @@ package icehockeystats.domain;
 
 import java.util.concurrent.TimeUnit;
 /**
- *
+ * Class for operating match time
  * @author Sami
  */
 public class Clock {
@@ -22,6 +22,9 @@ public class Clock {
         this.hours = 0;
     }        
     
+    /**
+     * When method called Tick clock by one second
+     */
     public void tick() {
         this.seconds++;
         this.minutes += this.seconds / 60;
@@ -31,6 +34,10 @@ public class Clock {
         this.hours = this.hours % 24;
     }
     
+    /**
+     * Show passed time
+     * @return Return time as mm:ss
+     */
     public String show() {
         
         String digitMinutes = "" + this.minutes;
