@@ -142,7 +142,7 @@ public class FXMLController implements Initializable {
         try {
             playerList = dr.loadPlayers();
             
-            for(int i = 0; i < playerList.size(); i++) {
+            for (int i = 0; i < playerList.size(); i++) {
                 Player player = playerList.get(i);
                 homeTeam.addPlayer(player.getNumber(), player);
             }
@@ -181,7 +181,7 @@ public class FXMLController implements Initializable {
         try {
             playerList = dr.loadPlayers();
             
-            for(int i = 0; i < playerList.size(); i++) {
+            for (int i = 0; i < playerList.size(); i++) {
                 Player player = playerList.get(i);
                 awayTeam.addPlayer(player.getNumber(), player);
             }

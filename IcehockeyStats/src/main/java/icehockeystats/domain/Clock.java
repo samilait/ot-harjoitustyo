@@ -43,11 +43,11 @@ public class Clock {
         String digitMinutes = "" + this.minutes;
         String digitSeconds = "" + this.seconds;
         
-        if(this.minutes < 10) {
+        if (this.minutes < 10) {
             digitMinutes = "0" + this.minutes;
         }
         
-        if(this.seconds < 10) {
+        if (this.seconds < 10) {
             digitSeconds = "0" + this.seconds;
         }
         
