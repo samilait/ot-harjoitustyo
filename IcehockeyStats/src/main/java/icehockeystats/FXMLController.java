@@ -98,19 +98,19 @@ public class FXMLController implements Initializable {
     @FXML
     private Button btnStartPeriod;
     @FXML
-    private TableView<?> tableScoreHome;
+    private TableView<Goal> tableScoreHome;
     @FXML
-    private TableColumn<?, ?> goalColumnHome;
+    private TableColumn<Goal, Integer> goalColumnHome;
     @FXML
-    private TableColumn<?, ?> goalTimeColumnHome;
+    private TableColumn<Goal, String> goalTimeColumnHome;
     @FXML
-    private TableColumn<?, ?> scorerColumnHome;
+    private TableColumn<Goal, Integer> scorerColumnHome;
     @FXML
-    private TableColumn<?, ?> assistant1ColumnHome;
+    private TableColumn<Goal, Integer> assistant1ColumnHome;
     @FXML
-    private TableColumn<?, ?> assistant2ColumnHome;
+    private TableColumn<Goal, Integer> assistant2ColumnHome;
     @FXML
-    private TableColumn<?, ?> goalTypeColumnHome;
+    private TableColumn<Goal, String> goalTypeColumnHome;
     @FXML
     private Button btnAddGoalHome;
     @FXML
@@ -258,6 +258,14 @@ public class FXMLController implements Initializable {
         btnStartPeriod.setDisable(true);
         btnStartClock.setDisable(true);
         btnStopClock.setDisable(true);
+        
+        // Home team goals
+        this.goalColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("number"));
+        this.goalTimeColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, String>("time"));
+        this.scorerColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("scorer"));
+        this.assistant1ColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant1"));
+        this.assistant2ColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant2"));
+        this.goalTypeColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, String>("type"));
 
     }    
 
@@ -374,5 +382,29 @@ public class FXMLController implements Initializable {
     private void setGoalAssstant2Number(ActionEvent event) {
         String number = this.cmbGoalAssistant2.getValue().substring(1, 3).trim();
         this.txtGoalAssistant2.setText(number);
+    }
+
+    @FXML
+    private void saveGoal(ActionEvent event) {
+        String time = this.txtGoalTime.getText();
+        int scorerNumber = Integer.parseInt(this.txtGoalScorer.getText());
+        int assistant1Number = Integer.parseInt(this.txtGoalAssistant1.getText());
+        int assistant2Number = Integer.parseInt(this.txtGoalAssistant2.getText());
+        String type = this.txtGoalType.getText();
+        
+        Player scorer = this.match.getHomeTeam().getPlayer(scorerNumber);
+        Player assistant1 = this.match.getHomeTeam().getPlayer(assistant1Number);
+        Player assistant2 = this.match.getHomeTeam().getPlayer(assistant2Number);
+        
+        this.match.getHomeTeam().addGoal(time, scorer, assistant1, assistant2, type);
+        
+        ObservableList<Goal> goals = FXCollections.observableList(this.match.getHomeTeam().getGoals());
+        
+        this.tableScoreHome.setItems(goals);
+         
+    }
+
+    @FXML
+    private void cancelGoal(ActionEvent event) {
     }
 }

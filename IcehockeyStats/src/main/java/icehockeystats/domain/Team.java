@@ -20,12 +20,14 @@ public class Team {
     private String name;
     private boolean home;
     private HashMap<Integer, Player> players;
-    private int goals;
+    private List<Goal> goals;
+    private int totalGoals;
 
     public Team(String name, boolean home) {
         this.name = name;
         this.home = home;
-        this.goals = 0;
+        this.totalGoals = 0;
+        this.goals = new ArrayList<>();
         this.players = new HashMap<>();        
     }
     
@@ -33,15 +35,17 @@ public class Team {
         this.players.put(number, player);
     }
     
-    public void addGoal(Integer scorer, Integer assistant1, Integer assistant2) {
-        this.goals++;
-        this.players.get(scorer).addGoal();
-        this.players.get(assistant1).addPass();
-        this.players.get(assistant2).addPass();
+    public void addGoal(String time, Player scorer, Player assistant1, Player assistant2, String type) {
+        this.totalGoals++;
+        this.goals.add(new Goal(this.totalGoals, time, scorer, assistant1, assistant2, type));
     }
     
-    public int getGoals() {
+    public List<Goal> getGoals() {
         return this.goals;
+    }
+    
+    public int getTotalGoals() {
+        return this.totalGoals;
     }
     
     public String getName() {

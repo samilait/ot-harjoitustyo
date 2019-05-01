@@ -169,8 +169,8 @@
                         <ComboBox fx:id="cmbGoalScorer" layoutX="241.0" layoutY="214.0" onAction="#setGoalScorerNumber" prefHeight="26.0" prefWidth="300.0" />
                         <ComboBox fx:id="cmbGoalAssistant1" layoutX="241.0" layoutY="249.0" onAction="#setGoalAssstant1Number" prefHeight="26.0" prefWidth="300.0" />
                         <ComboBox fx:id="cmbGoalAssistant2" layoutX="241.0" layoutY="288.0" onAction="#setGoalAssstant2Number" prefHeight="26.0" prefWidth="300.0" />
-                        <Button fx:id="btnGoalSave" layoutX="242.0" layoutY="348.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Tallenna" />
-                        <Button fx:id="btnGoalCancel" layoutX="424.0" layoutY="348.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Peruuta" />
+                        <Button fx:id="btnGoalSave" layoutX="242.0" layoutY="348.0" mnemonicParsing="false" onAction="#saveGoal" prefHeight="26.0" prefWidth="110.0" text="Tallenna" />
+                        <Button fx:id="btnGoalCancel" layoutX="424.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancelGoal" prefHeight="26.0" prefWidth="110.0" text="Peruuta" />
                      </children>
                   </AnchorPane>
               </content>

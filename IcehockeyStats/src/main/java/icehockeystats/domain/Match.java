@@ -70,7 +70,7 @@ public class Match {
     
     @Override
     public String toString() {
-        return this.homeTeam.getGoals() + " - " + this.awayTeam.getGoals();
+        return this.homeTeam.getTotalGoals() + " - " + this.awayTeam.getTotalGoals();
     }
     
     

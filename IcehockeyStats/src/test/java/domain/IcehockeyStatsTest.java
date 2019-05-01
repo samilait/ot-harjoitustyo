@@ -7,6 +7,7 @@ package domain;
  */
 
 import icehockeystats.domain.Clock;
+import icehockeystats.domain.Goal;
 import icehockeystats.domain.Match;
 import icehockeystats.domain.Player;
 import icehockeystats.domain.Team;
@@ -95,8 +96,8 @@ public class IcehockeyStatsTest {
         this.team.addPlayer(this.player.getNumber(), this.player);
         this.team.addPlayer(4, new Player("Miro", "Heiskanen", 4, "VP", 1));
         this.team.addPlayer(8, new Player("Teemu", "Selänne", 8, "VL", 1));
-        this.team.addGoal(37, 8, 4);
-        assertEquals(1, this.team.getGoals());
+        this.team.addGoal("00:01", this.team.getPlayer(4), this.team.getPlayer(8), this.team.getPlayer(37), "YV");
+        assertEquals(1, this.team.getTotalGoals());
     }
     
     // Match tests
