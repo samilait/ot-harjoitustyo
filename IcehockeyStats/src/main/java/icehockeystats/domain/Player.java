@@ -107,5 +107,12 @@ public class Player {
     public long getTotalPoints() {
         return this.goals + this.passes;
     }
+
+    @Override
+    public String toString() {
+        return "#" + this.number + " " + this.firstName + " " + this.lastName;
+    }
+    
+    
     
 }

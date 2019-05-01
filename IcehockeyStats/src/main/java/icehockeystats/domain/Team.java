@@ -8,6 +8,8 @@ package icehockeystats.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -42,7 +44,29 @@ public class Team {
         return this.goals;
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
     public Player getPlayer(int number) {
         return this.players.get(number);
+    }        
+    
+    public HashMap<Integer, Player> getPlayers() {
+        return this.players;
+    }
+    
+    public List<String> getPlayersNumberName() {
+        List<String> numberNames = new ArrayList<>();
+        
+        Object[] numbers = this.players.keySet().toArray();
+        
+        for (int i = 0; i < this.players.size(); i++) {
+            int number = Integer.parseInt(numbers[i].toString());            
+            Player player = this.players.get(number);
+            numberNames.add("#" + player.getNumber() + " " + player.getFirstName() + " " + player.getLastName());
+        }
+        
+        return numberNames;
     }
 }

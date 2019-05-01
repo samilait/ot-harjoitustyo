@@ -21,8 +21,17 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.layout.Pane;
 //import javafx.concurrent.Task;
 //import javafx.concurrent.WorkerStateEvent;
 //import javafx.event.EventHandler;
@@ -104,12 +113,62 @@ public class FXMLController implements Initializable {
     private TableColumn<?, ?> goalTypeColumnHome;
     @FXML
     private Button btnAddGoalHome;
+    @FXML
+    private Tab tabStatistics;
+    @FXML
+    private Tab tabGoal;
+    @FXML
+    private TabPane tabMain;
+    @FXML
+    private Label lbGoalTeam;
+    @FXML
+    private TextField txtGoalAssistant1;
+    @FXML
+    private TextField txtGoalAssistant2;
+    @FXML
+    private TextField txtGoalType;
+    @FXML
+    private TextField txtGoalScorer;
+    @FXML
+    private TextField txtGoalTime;
+    @FXML
+    private ComboBox<String> cmbGoalScorer;
+    @FXML
+    private ComboBox<String> cmbGoalAssistant1;
+    @FXML
+    private ComboBox<String> cmbGoalAssistant2;
+    @FXML
+    private Button btnGoalSave;
+    @FXML
+    private Button btnGoalCancel;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+        // Listeners for Goal input text fields
+        this.txtGoalScorer.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                selectGoalScorer(newValue);
+            }            
+        });
         
+        this.txtGoalAssistant1.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                selectGoalAssistant1(newValue);
+            }            
+        });
+        
+        this.txtGoalAssistant2.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                selectGoalAssistant2(newValue);
+            }            
+        });
+
+
         // Initialise clock
 //        this.thread = new Thread();
         this.clock = new Clock();
@@ -268,5 +327,52 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void addGoalHome(ActionEvent event) {
+                        
+        this.tabMain.getSelectionModel().select(tabGoal);
+        
+        // Set team name
+        this.lbGoalTeam.setText(this.match.getHomeTeam().getName());
+        
+        // Set goal time
+        txtGoalTime.setText(lbClock.getText());
+        
+        List<String> playersNumberName = this.match.getHomeTeam().getPlayersNumberName();
+        this.cmbGoalScorer.setItems(FXCollections.observableArrayList(playersNumberName));
+        this.cmbGoalAssistant1.setItems(FXCollections.observableArrayList(playersNumberName));
+        this.cmbGoalAssistant2.setItems(FXCollections.observableArrayList(playersNumberName));
+
+    }
+    
+    private void selectGoalScorer(String number) {
+        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        this.cmbGoalScorer.getSelectionModel().select(player.toString());
+    }
+    
+    private void selectGoalAssistant1(String number) {
+        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        this.cmbGoalAssistant1.getSelectionModel().select(player.toString());
+    }
+
+    private void selectGoalAssistant2(String number) {
+        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        this.cmbGoalAssistant2.getSelectionModel().select(player.toString());
+    }
+
+    @FXML
+    private void setGoalScorerNumber(ActionEvent event) {
+        String number = this.cmbGoalScorer.getValue().substring(1, 3).trim();
+        this.txtGoalScorer.setText(number);
+    }
+
+    @FXML
+    private void setGoalAssstant1Number(ActionEvent event) {
+        String number = this.cmbGoalAssistant1.getValue().substring(1, 3).trim();
+        this.txtGoalAssistant1.setText(number);
+    }
+
+    @FXML
+    private void setGoalAssstant2Number(ActionEvent event) {
+        String number = this.cmbGoalAssistant2.getValue().substring(1, 3).trim();
+        this.txtGoalAssistant2.setText(number);
     }
 }

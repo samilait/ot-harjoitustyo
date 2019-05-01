@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="652.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="icehockeystats.FXMLController">
    <children>
-      <TabPane prefHeight="652.0" prefWidth="911.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabMain" prefHeight="652.0" prefWidth="911.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Kokoonpanot">
             <content>
@@ -40,7 +42,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Tilastointi">
+          <Tab fx:id="tabStatistics" text="Tilastointi">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="848.0">
                      <children>
@@ -99,7 +101,7 @@
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="130.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
+                        <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="129.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -114,7 +116,8 @@
                                       </columns>
                                     </TableView>
                                     <Button fx:id="btnAddGoalHome" layoutX="25.0" layoutY="136.0" mnemonicParsing="false" onAction="#addGoalHome" prefHeight="26.0" prefWidth="97.0" text="Lisää..." />
-                                 </children></AnchorPane>
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </TitledPane>
                         <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
@@ -141,6 +144,37 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab fx:id="tabGoal" text="Maali">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lbGoalTeam" layoutX="244.0" layoutY="116.0" text="Koti">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="256.0" layoutY="152.0" text="Aika" />
+                        <Label layoutX="316.0" layoutY="152.0" text="Tekijä" />
+                        <Label layoutX="364.0" layoutY="152.0" text="1. syöttäjä" />
+                        <Label layoutX="426.0" layoutY="152.0" text="2. syöttäjä" />
+                        <Label layoutX="496.0" layoutY="152.0" text="Tyyppi" />
+                        <TextField fx:id="txtGoalAssistant1" layoutX="367.0" layoutY="170.0" prefHeight="26.0" prefWidth="48.0" />
+                        <TextField fx:id="txtGoalAssistant2" layoutX="429.0" layoutY="170.0" prefHeight="26.0" prefWidth="48.0" />
+                        <TextField fx:id="txtGoalScorer" layoutX="308.0" layoutY="170.0" prefHeight="26.0" prefWidth="48.0" />
+                        <TextField fx:id="txtGoalType" layoutX="490.0" layoutY="170.0" prefHeight="26.0" prefWidth="48.0" />
+                        <TextField fx:id="txtGoalTime" layoutX="244.0" layoutY="170.0" prefHeight="26.0" prefWidth="48.0" text="00:00" />
+                        <Label layoutX="182.0" layoutY="218.0" text="Tekijä" />
+                        <Label layoutX="159.0" layoutY="254.0" text="1. syöttäjä" />
+                        <Label layoutX="159.0" layoutY="293.0" text="2. syöttäjä" />
+                        <ComboBox fx:id="cmbGoalScorer" layoutX="241.0" layoutY="214.0" onAction="#setGoalScorerNumber" prefHeight="26.0" prefWidth="300.0" />
+                        <ComboBox fx:id="cmbGoalAssistant1" layoutX="241.0" layoutY="249.0" onAction="#setGoalAssstant1Number" prefHeight="26.0" prefWidth="300.0" />
+                        <ComboBox fx:id="cmbGoalAssistant2" layoutX="241.0" layoutY="288.0" onAction="#setGoalAssstant2Number" prefHeight="26.0" prefWidth="300.0" />
+                        <Button fx:id="btnGoalSave" layoutX="242.0" layoutY="348.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Tallenna" />
+                        <Button fx:id="btnGoalCancel" layoutX="424.0" layoutY="348.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Peruuta" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
