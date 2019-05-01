@@ -386,6 +386,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void saveGoal(ActionEvent event) {
+        
         String time = this.txtGoalTime.getText();
         int scorerNumber = Integer.parseInt(this.txtGoalScorer.getText());
         int assistant1Number = Integer.parseInt(this.txtGoalAssistant1.getText());

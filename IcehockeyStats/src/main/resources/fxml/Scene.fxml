@@ -122,7 +122,20 @@
                         </TitledPane>
                         <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView prefHeight="131.0" prefWidth="314.0">
+                                      <columns>
+                                        <TableColumn prefWidth="38.40002518892288" text="Saa:" />
+                                        <TableColumn prefWidth="45.599971771240234" text="Kär:" />
+                                          <TableColumn prefWidth="40.79998779296875" text="Min:" />
+                                          <TableColumn prefWidth="35.20001220703125" text="Syy:" />
+                                          <TableColumn prefWidth="48.0" text="Alkaa:" />
+                                          <TableColumn prefWidth="59.20002746582031" text="Päättyi:" />
+                                      </columns>
+                                    </TableView>
+                                    <Button fx:id="btnAddPenaltyHome" layoutX="33.0" layoutY="134.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Lsää..." />
+                                 </children></AnchorPane>
                            </content>
                         </TitledPane>
                         <TitledPane fx:id="tpGoalsAway" animated="false" collapsible="false" layoutY="323.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Vieras)">
@@ -173,6 +186,11 @@
                         <Button fx:id="btnGoalCancel" layoutX="424.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancelGoal" prefHeight="26.0" prefWidth="110.0" text="Peruuta" />
                      </children>
                   </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabPenalty" text="Rangaistus">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
         </tabs>
