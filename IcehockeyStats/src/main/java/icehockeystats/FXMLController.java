@@ -487,7 +487,7 @@ public class FXMLController implements Initializable {
             totalMinutesString = "0" + totalMinutes;
         }
         
-        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        String seconds = lbClock.getText().substring(2);
         
         txtGoalTime.setText(totalMinutesString + seconds);
         
@@ -663,7 +663,7 @@ public class FXMLController implements Initializable {
             totalMinutesString = "0" + totalMinutes;
         }
         
-        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        String seconds = lbClock.getText().substring(2);
         
         this.txtPenaltyStart.setText(totalMinutesString + seconds);
         
@@ -768,7 +768,7 @@ public class FXMLController implements Initializable {
             totalMinutesString = "0" + totalMinutes;
         }
         
-        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        String seconds = lbClock.getText().substring(2);
         
         this.txtPenaltyStart.setText(totalMinutesString + seconds);
                 
@@ -809,7 +809,7 @@ public class FXMLController implements Initializable {
             totalMinutesString = "0" + totalMinutes;
         }
         
-        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        String seconds = lbClock.getText().substring(2);
         
         txtGoalTime.setText(totalMinutesString + seconds);
         
