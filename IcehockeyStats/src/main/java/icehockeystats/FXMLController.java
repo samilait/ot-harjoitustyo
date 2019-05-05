@@ -49,6 +49,8 @@ public class FXMLController implements Initializable {
     private Clock clock;
     private boolean clockRunning;
     private Match match;
+    private boolean isHomeSelected = true;
+    
 //    static Thread thread = new Thread();
     
     @FXML
@@ -185,6 +187,36 @@ public class FXMLController implements Initializable {
     private TableColumn<Penalty, String> penaltyStartColumnHome;
     @FXML
     private TableColumn<Penalty, String> penaltyEndColumnHome;
+    @FXML
+    private TableView<Penalty> tablePenaltyAway;
+    @FXML
+    private TableColumn<Penalty, Integer> penaltyRecieverColumnAway;
+    @FXML
+    private TableColumn<Penalty, String> penaltyMinColumnAway;
+    @FXML
+    private TableColumn<Penalty, String> penaltyCodeColumnAway;
+    @FXML
+    private TableColumn<Penalty, String> penaltyStartColumnAway;
+    @FXML
+    private TableColumn<Penalty, String> penaltyEndColumnAway;
+    @FXML
+    private Button btnAddPenaltyAway;
+    @FXML
+    private TableView<Goal> tableScoreAway;
+    @FXML
+    private TableColumn<Goal, Integer> goalColumnAway;
+    @FXML
+    private TableColumn<Goal, String> goalTimeColumnAway;
+    @FXML
+    private TableColumn<Goal, Integer> scorerColumnAway;
+    @FXML
+    private TableColumn<Goal, Integer> assistant1ColumnAway;
+    @FXML
+    private TableColumn<Goal, Integer> assistant2ColumnAway;
+    @FXML
+    private TableColumn<Goal, String> goalTypeColumnAway;
+    @FXML
+    private Button btnAddGoalAway;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -339,7 +371,22 @@ public class FXMLController implements Initializable {
         this.penaltyCodeColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("code"));
         this.penaltyStartColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("startTime"));
         this.penaltyEndColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("endTime"));
-
+        
+        // Away team goals
+        this.goalColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("number"));
+        this.goalTimeColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, String>("time"));
+        this.scorerColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("scorer"));
+        this.assistant1ColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant1"));
+        this.assistant2ColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant2"));
+        this.goalTypeColumnAway.setCellValueFactory(new PropertyValueFactory<Goal, String>("type"));
+        
+        // Away team penalties
+        this.penaltyRecieverColumnAway.setCellValueFactory(new PropertyValueFactory<Penalty, Integer>("number"));
+        this.penaltyMinColumnAway.setCellValueFactory(new PropertyValueFactory<Penalty, String>("min"));
+        this.penaltyCodeColumnAway.setCellValueFactory(new PropertyValueFactory<Penalty, String>("code"));
+        this.penaltyStartColumnAway.setCellValueFactory(new PropertyValueFactory<Penalty, String>("startTime"));
+        this.penaltyEndColumnAway.setCellValueFactory(new PropertyValueFactory<Penalty, String>("endTime"));
+        
     }    
 
     @FXML
@@ -411,6 +458,8 @@ public class FXMLController implements Initializable {
                         
         this.tabMain.getSelectionModel().select(tabGoal);
         
+        this.isHomeSelected = true;
+        
         // Set team name
         this.lbGoalTeam.setText(this.match.getHomeTeam().getName());
         
@@ -425,17 +474,41 @@ public class FXMLController implements Initializable {
     }
     
     private void selectGoalScorer(String number) {
-        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
+        
+        Player player = team.getPlayer(Integer.parseInt(number));        
         this.cmbGoalScorer.getSelectionModel().select(player.toString());
     }
     
     private void selectGoalAssistant1(String number) {
-        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
+
+        Player player = team.getPlayer(Integer.parseInt(number));        
         this.cmbGoalAssistant1.getSelectionModel().select(player.toString());
     }
 
     private void selectGoalAssistant2(String number) {
-        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
+        
+        Player player = team.getPlayer(Integer.parseInt(number));        
         this.cmbGoalAssistant2.getSelectionModel().select(player.toString());
     }
 
@@ -466,24 +539,44 @@ public class FXMLController implements Initializable {
         int assistant2Number = Integer.parseInt(this.txtGoalAssistant2.getText());
         String type = this.txtGoalType.getText();
         
-        Player scorer = this.match.getHomeTeam().getPlayer(scorerNumber);
-        Player assistant1 = this.match.getHomeTeam().getPlayer(assistant1Number);
-        Player assistant2 = this.match.getHomeTeam().getPlayer(assistant2Number);
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
         
-        this.match.getHomeTeam().addGoal(time, scorer, assistant1, assistant2, type);
+        Player scorer = team.getPlayer(scorerNumber);
+        Player assistant1 = team.getPlayer(assistant1Number);
+        Player assistant2 = team.getPlayer(assistant2Number);
         
-        ObservableList<Goal> goals = FXCollections.observableList(this.match.getHomeTeam().getGoals());
+        team.addGoal(time, scorer, assistant1, assistant2, type);
         
-        this.tableScoreHome.setItems(goals);
+        ObservableList<Goal> goals = FXCollections.observableList(team.getGoals());
+        
+        if (this.isHomeSelected) {
+            this.tableScoreHome.setItems(goals);
+        } else {
+            this.tableScoreAway.setItems(goals);
+        }
+        
+        clearGoal();
         
         this.tabMain.getSelectionModel().select(tabStatistics);
-
          
     }
 
     @FXML
     private void cancelGoal(ActionEvent event) {
         
+        clearGoal();
+        
+        this.tabMain.getSelectionModel().select(tabStatistics);
+        
+    }
+    
+    public void clearGoal() {
+
         this.lbGoalTeam.setText("");
         this.txtGoalAssistant1.setText("");
         this.txtGoalAssistant2.setText("");
@@ -495,18 +588,19 @@ public class FXMLController implements Initializable {
         this.cmbGoalAssistant1.getItems().removeAll(this.cmbGoalAssistant1.getItems());
         this.cmbGoalAssistant2.getItems().removeAll(this.cmbGoalAssistant2.getItems());
         
-        this.tabMain.getSelectionModel().select(tabStatistics);
-        
     }
     
     private void selectPenaltyReceiver(String number) {
-        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
-        this.cmbPenaltyReceiver.getSelectionModel().select(player.toString());
-    }
+        
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
 
-    private void selectPenaltyDescription(String number) {
-        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
-        this.cmbPenaltyDescription.getSelectionModel().select(player.toString());
+        Player player = team.getPlayer(Integer.parseInt(number));        
+        this.cmbPenaltyReceiver.getSelectionModel().select(player.toString());
     }
     
     private void setPenaltyEndTime() {
@@ -528,6 +622,8 @@ public class FXMLController implements Initializable {
     private void addPenaltyHome(ActionEvent event) throws SQLException {
 
         this.tabMain.getSelectionModel().select(tabPenalty);
+        
+        this.isHomeSelected = true;
         
         // Set team name
         this.lbPenaltyTeam.setText(this.match.getHomeTeam().getName());
@@ -569,21 +665,41 @@ public class FXMLController implements Initializable {
         String min = this.txtPenaltyMin.getText();
         String startTime = this.txtPenaltyStart.getText();
         String endTime = this.txtPenaltyEnd.getText();
-        Player player = this.match.getHomeTeam().getPlayer(number);
         
-        this.match.getHomeTeam().addPenalty(player, code, description, min, startTime, endTime);
+        Team team;
+        if (this.isHomeSelected) {
+            team = this.match.getHomeTeam();
+        } else {
+            team = this.match.getAwayTeam();
+        }
         
-        ObservableList<Penalty> penalties = FXCollections.observableList(this.match.getHomeTeam().getPenalties());
+        Player player = team.getPlayer(number);
         
-        this.tablePenaltyHome.setItems(penalties);
+        team.addPenalty(player, code, description, min, startTime, endTime);
+        
+        ObservableList<Penalty> penalties = FXCollections.observableList(team.getPenalties());
+        
+        if (this.isHomeSelected) {
+            this.tablePenaltyHome.setItems(penalties);
+        } else {
+            this.tablePenaltyAway.setItems(penalties);
+        }
+        
+        clearPenalty();
         
         this.tabMain.getSelectionModel().select(tabStatistics);
-
         
     }
 
     @FXML
     private void cancelPenalty(ActionEvent event) {
+
+        clearPenalty();
+        this.tabMain.getSelectionModel().select(tabStatistics);
+
+    }
+    
+    public void clearPenalty() {
 
         this.lbPenaltyTeam.setText("");
         this.txtPenaltyReceiver.setText("");
@@ -595,8 +711,57 @@ public class FXMLController implements Initializable {
         this.cmbPenaltyReceiver.getItems().removeAll(this.cmbPenaltyReceiver.getItems());
         this.cmbPenaltyDescription.getItems().removeAll(this.cmbPenaltyDescription.getItems());
         
-        this.tabMain.getSelectionModel().select(tabStatistics);
+    }
 
+    @FXML
+    private void addPenaltyAway(ActionEvent event) throws SQLException {
+
+        this.tabMain.getSelectionModel().select(tabPenalty);
+        
+        this.isHomeSelected = false;
+        
+        // Set team name
+        this.lbPenaltyTeam.setText(this.match.getAwayTeam().getName());
+        
+        // Set goal time
+        this.txtPenaltyStart.setText(lbClock.getText());
+        
+        List<String> playersNumberName = this.match.getAwayTeam().getPlayersNumberName();
+        this.cmbPenaltyReceiver.setItems(FXCollections.observableArrayList(playersNumberName));
+        
+        PenaltyDao penaltyDao = new PenaltyDao(database);
+        List<PenaltyCode> penaltyCodes = penaltyDao.findAll();
+        
+        this.penaltyCodeMap = new HashMap<>();
+        List<String> penaltyCodeNames = new ArrayList<>();
+        
+        for (int i = 0; i < penaltyCodes.size(); i++) {
+            penaltyCodeMap.put(penaltyCodes.get(i).toString(), penaltyCodes.get(i).getCode());
+            penaltyCodeNames.add(penaltyCodes.get(i).toString());
+        }
+        
+        this.cmbPenaltyDescription.setItems(FXCollections.observableArrayList(penaltyCodeNames));
+        
+    }
+
+    @FXML
+    private void addGoalAway(ActionEvent event) {
+
+        this.tabMain.getSelectionModel().select(tabGoal);
+        
+        this.isHomeSelected = false;
+        
+        // Set team name
+        this.lbGoalTeam.setText(this.match.getAwayTeam().getName());
+        
+        // Set goal time
+        txtGoalTime.setText(lbClock.getText());
+        
+        List<String> playersNumberName = this.match.getAwayTeam().getPlayersNumberName();
+        this.cmbGoalScorer.setItems(FXCollections.observableArrayList(playersNumberName));
+        this.cmbGoalAssistant1.setItems(FXCollections.observableArrayList(playersNumberName));
+        this.cmbGoalAssistant2.setItems(FXCollections.observableArrayList(playersNumberName));
+        
     }
     
 }
