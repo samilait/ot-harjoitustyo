@@ -46,23 +46,6 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="848.0">
                      <children>
-                        <TitledPane fx:id="tpPenaltiesAway" animated="false" collapsible="false" layoutX="388.0" layoutY="324.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Vieras)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView fx:id="tablePenaltyAway" prefHeight="131.0" prefWidth="314.0">
-                                       <columns>
-                                          <TableColumn fx:id="penaltyRecieverColumnAway" prefWidth="38.40002518892288" text="Saa:" />
-                                          <TableColumn fx:id="penaltyMinColumnAway" prefWidth="40.79998779296875" text="Min:" />
-                                          <TableColumn fx:id="penaltyCodeColumnAway" prefWidth="35.20001220703125" text="Syy:" />
-                                          <TableColumn fx:id="penaltyStartColumnAway" prefWidth="48.0" text="Alkaa:" />
-                                          <TableColumn fx:id="penaltyEndColumnAway" prefWidth="59.20002746582031" text="Päättyi:" />
-                                       </columns>
-                                    </TableView>
-                                    <Button fx:id="btnAddPenaltyAway" layoutX="36.0" layoutY="140.0" mnemonicParsing="false" onAction="#addPenaltyAway" prefHeight="26.0" prefWidth="97.0" text="Lisää..." />
-                                 </children></AnchorPane>
-                           </content>
-                        </TitledPane>
                         <TitledPane animated="false" collapsible="false" prefHeight="130.0" prefWidth="247.0" text="Kello">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -104,20 +87,23 @@
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" collapsible="false" layoutX="494.0" prefHeight="130.0" prefWidth="210.0" text="Toiminnot">
+                        <TitledPane animated="false" collapsible="false" layoutX="494.0" prefHeight="130.0" prefWidth="356.0" text="Toiminnot">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0">
                                  <children>
                                     <Button fx:id="btnStartMatch" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#startMatch" prefHeight="42.0" prefWidth="104.0" text="Aloita ottelu" />
                                     <Button fx:id="btnStartPeriod" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#startPeriod" prefHeight="42.0" prefWidth="104.0" text="Aloita erä" />
+                                    <Button fx:id="btnEndMatch" layoutX="207.0" layoutY="55.0" mnemonicParsing="false" onAction="#saveMatchData" prefHeight="42.0" prefWidth="104.0" text="Lopeta ottelu" />
+                                    <TextField fx:id="txtPeriodLength" layoutX="251.0" layoutY="14.0" prefHeight="26.0" prefWidth="60.0" />
+                                    <Label layoutX="147.0" layoutY="19.0" text="Erän pituus (min)" />
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="129.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Koti)">
+                        <TitledPane fx:id="tpGoalsHome" animated="false" collapsible="false" layoutY="129.0" prefHeight="195.0" prefWidth="462.0" text="Maalit (Koti)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tableScoreHome" prefHeight="130.0" prefWidth="386.0">
+                                    <TableView fx:id="tableScoreHome" prefHeight="130.0" prefWidth="459.0">
                                       <columns>
                                         <TableColumn fx:id="goalColumnHome" prefWidth="28.000000774860382" text="#" />
                                         <TableColumn fx:id="goalTimeColumnHome" prefWidth="54.39999008178711" text="Aika" />
@@ -132,11 +118,11 @@
                               </AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="388.0" layoutY="130.0" prefHeight="194.0" prefWidth="316.0" text="Rangaistukset (Koti)">
+                        <TitledPane fx:id="tpPenaltiesHome" animated="false" collapsible="false" layoutX="463.0" layoutY="129.0" prefHeight="194.0" prefWidth="386.0" text="Rangaistukset (Koti)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tablePenaltyHome" prefHeight="131.0" prefWidth="314.0">
+                                    <TableView fx:id="tablePenaltyHome" prefHeight="131.0" prefWidth="384.0">
                                       <columns>
                                         <TableColumn fx:id="penaltyRecieverColumnHome" prefWidth="38.40002518892288" text="Saa:" />
                                           <TableColumn fx:id="penaltyMinColumnHome" prefWidth="40.79998779296875" text="Min:" />
@@ -149,11 +135,11 @@
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="tpGoalsAway" animated="false" collapsible="false" layoutY="323.0" prefHeight="195.0" prefWidth="388.0" text="Maalit (Vieras)">
+                        <TitledPane fx:id="tpGoalsAway" animated="false" collapsible="false" layoutY="323.0" prefHeight="195.0" prefWidth="463.0" text="Maalit (Vieras)">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="tableScoreAway" prefHeight="130.0" prefWidth="386.0">
+                                    <TableView fx:id="tableScoreAway" prefHeight="130.0" prefWidth="461.0">
                                        <columns>
                                           <TableColumn fx:id="goalColumnAway" prefWidth="28.000000774860382" text="#" />
                                           <TableColumn fx:id="goalTimeColumnAway" prefWidth="54.39999008178711" text="Aika" />
@@ -167,14 +153,22 @@
                                  </children></AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="tpGoaliesHome" animated="false" collapsible="false" layoutX="704.0" layoutY="130.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Koti)">
+                        <TitledPane fx:id="tpPenaltiesAway" animated="false" collapsible="false" layoutX="463.0" layoutY="323.0" prefHeight="194.0" prefWidth="386.0" text="Rangaistukset (Vieras)">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
-                           </content>
-                        </TitledPane>
-                        <TitledPane fx:id="tpGoaliesAway" animated="false" collapsible="false" layoutX="704.0" layoutY="324.0" prefHeight="193.0" prefWidth="147.0" text="Maalivahti (Vieras)">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="104.0" prefWidth="203.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="tablePenaltyAway" prefHeight="131.0" prefWidth="386.0">
+                                       <columns>
+                                          <TableColumn fx:id="penaltyRecieverColumnAway" prefWidth="38.40002518892288" text="Saa:" />
+                                          <TableColumn fx:id="penaltyMinColumnAway" prefWidth="40.79998779296875" text="Min:" />
+                                          <TableColumn fx:id="penaltyCodeColumnAway" prefWidth="35.20001220703125" text="Syy:" />
+                                          <TableColumn fx:id="penaltyStartColumnAway" prefWidth="48.0" text="Alkaa:" />
+                                          <TableColumn fx:id="penaltyEndColumnAway" prefWidth="59.20002746582031" text="Päättyi:" />
+                                       </columns>
+                                    </TableView>
+                                    <Button fx:id="btnAddPenaltyAway" layoutX="36.0" layoutY="140.0" mnemonicParsing="false" onAction="#addPenaltyAway" prefHeight="26.0" prefWidth="97.0" text="Lisää..." />
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </TitledPane>
                      </children>

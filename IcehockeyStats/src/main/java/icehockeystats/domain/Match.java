@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Match {
     
+    private int id;
     private Team homeTeam;
     private Team awayTeam;
     private Date startTime;
@@ -21,13 +22,18 @@ public class Match {
     private int period;
     private int periodLength;
 
-    public Match(Team homeTeam, Team awayTeam) {
+    public Match(int id, Team homeTeam, Team awayTeam) {
+        this.id = id;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.period = 0;
         this.periodLength = 15;
     }
         
+    public int getId() {
+        return this.id;
+    }
+    
     public Team getHomeTeam() {
         return homeTeam;
     }

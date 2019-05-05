@@ -2,6 +2,7 @@ package icehockeystats;
 
 import icehockeystats.dao.DataReader;
 import icehockeystats.dao.Database;
+import icehockeystats.dao.MatchDao;
 import icehockeystats.dao.PenaltyDao;
 import icehockeystats.domain.Player;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
@@ -95,10 +97,6 @@ public class FXMLController implements Initializable {
     private TitledPane tpPenaltiesHome;
     @FXML
     private TitledPane tpGoalsAway;
-    @FXML
-    private TitledPane tpGoaliesHome;
-    @FXML
-    private TitledPane tpGoaliesAway;
     @FXML
     private Label lbScore;
     @FXML
@@ -217,6 +215,10 @@ public class FXMLController implements Initializable {
     private TableColumn<Goal, String> goalTypeColumnAway;
     @FXML
     private Button btnAddGoalAway;
+    @FXML
+    private Button btnEndMatch;
+    @FXML
+    private TextField txtPeriodLength;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -228,7 +230,7 @@ public class FXMLController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+                
         // Listeners for Goal input text fields
         this.txtGoalScorer.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -288,7 +290,6 @@ public class FXMLController implements Initializable {
             lbStatusHomeTeamName.setText(homeTeamName);
             tpGoalsHome.setText("Maalit (" + homeTeamName + ")");
             tpPenaltiesHome.setText("Rangaistukset (" + homeTeamName + ")");
-            tpGoaliesHome.setText("Maalivahdit (" + homeTeamName + ")");
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -327,8 +328,6 @@ public class FXMLController implements Initializable {
             lbStatusAwayTeamName.setText(awayTeamName);
             tpGoalsAway.setText("Maalit (" + awayTeamName + ")");
             tpPenaltiesAway.setText("Rangaistukset (" + awayTeamName + ")");
-            tpGoaliesAway.setText("Maalivahdit (" + awayTeamName + ")");
-
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -348,7 +347,10 @@ public class FXMLController implements Initializable {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.match = new Match(homeTeam, awayTeam);  // Initialise match
+        Random r = new Random();
+        int id = r.nextInt(10000);
+        
+        this.match = new Match(id, homeTeam, awayTeam);  // Initialise match
         lbScore.setText(this.match.toString());      // Set initial score
         lbPeriod.setText("Erä: " + Integer.toString(match.getPeriod()));
         
@@ -404,6 +406,9 @@ public class FXMLController implements Initializable {
                     @Override
                     public void run() {
                         clockTick();
+                        
+                        
+                        
                     }
                 };
 
@@ -436,6 +441,13 @@ public class FXMLController implements Initializable {
         // Clock tick one second and output time to clock display
         clock.tick();
         lbClock.setText(clock.show());
+        
+        String periodLength = this.txtPeriodLength.getText();
+        String currentTime = lbClock.getText().substring(0, 2);
+        
+        if (currentTime.equals(periodLength)) {
+            this.clockRunning = false;
+        }
     }
 
     @FXML
@@ -450,6 +462,9 @@ public class FXMLController implements Initializable {
         lbPeriod.setText("Erä: " + Integer.toString(match.getPeriod()));
         btnStartClock.setDisable(false);
         btnStopClock.setDisable(false);
+        
+        this.lbClock.setText("00:00");
+        clock.reset();
 
     }
 
@@ -464,7 +479,17 @@ public class FXMLController implements Initializable {
         this.lbGoalTeam.setText(this.match.getHomeTeam().getName());
         
         // Set goal time
-        txtGoalTime.setText(lbClock.getText());
+        int totalMinutes = Integer.parseInt(this.txtPeriodLength.getText()) * (this.match.getPeriod() - 1);
+        totalMinutes += Integer.parseInt(this.lbClock.getText().substring(0, 2));
+        
+        String totalMinutesString = "" + totalMinutes;
+        if (totalMinutes < 10) {
+            totalMinutesString = "0" + totalMinutes;
+        }
+        
+        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        
+        txtGoalTime.setText(totalMinutesString + seconds);
         
         List<String> playersNumberName = this.match.getHomeTeam().getPlayersNumberName();
         this.cmbGoalScorer.setItems(FXCollections.observableArrayList(playersNumberName));
@@ -562,6 +587,8 @@ public class FXMLController implements Initializable {
         
         clearGoal();
         
+        this.lbScore.setText(this.match.toString());
+        
         this.tabMain.getSelectionModel().select(tabStatistics);
          
     }
@@ -628,8 +655,17 @@ public class FXMLController implements Initializable {
         // Set team name
         this.lbPenaltyTeam.setText(this.match.getHomeTeam().getName());
         
-        // Set goal time
-        this.txtPenaltyStart.setText(lbClock.getText());
+        int totalMinutes = Integer.parseInt(this.txtPeriodLength.getText()) * (this.match.getPeriod() - 1);
+        totalMinutes += Integer.parseInt(this.lbClock.getText().substring(0, 2));
+        
+        String totalMinutesString = "" + totalMinutes;
+        if (totalMinutes < 10) {
+            totalMinutesString = "0" + totalMinutes;
+        }
+        
+        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        
+        this.txtPenaltyStart.setText(totalMinutesString + seconds);
         
         List<String> playersNumberName = this.match.getHomeTeam().getPlayersNumberName();
         this.cmbPenaltyReceiver.setItems(FXCollections.observableArrayList(playersNumberName));
@@ -722,10 +758,20 @@ public class FXMLController implements Initializable {
         
         // Set team name
         this.lbPenaltyTeam.setText(this.match.getAwayTeam().getName());
-        
+
         // Set goal time
-        this.txtPenaltyStart.setText(lbClock.getText());
+        int totalMinutes = Integer.parseInt(this.txtPeriodLength.getText()) * (this.match.getPeriod() - 1);
+        totalMinutes += Integer.parseInt(this.lbClock.getText().substring(0, 2));
         
+        String totalMinutesString = "" + totalMinutes;
+        if (totalMinutes < 10) {
+            totalMinutesString = "0" + totalMinutes;
+        }
+        
+        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        
+        this.txtPenaltyStart.setText(totalMinutesString + seconds);
+                
         List<String> playersNumberName = this.match.getAwayTeam().getPlayersNumberName();
         this.cmbPenaltyReceiver.setItems(FXCollections.observableArrayList(playersNumberName));
         
@@ -755,7 +801,17 @@ public class FXMLController implements Initializable {
         this.lbGoalTeam.setText(this.match.getAwayTeam().getName());
         
         // Set goal time
-        txtGoalTime.setText(lbClock.getText());
+        int totalMinutes = Integer.parseInt(this.txtPeriodLength.getText()) * (this.match.getPeriod() - 1);
+        totalMinutes += Integer.parseInt(this.lbClock.getText().substring(0, 2));
+        
+        String totalMinutesString = "" + totalMinutes;
+        if (totalMinutes < 10) {
+            totalMinutesString = "0" + totalMinutes;
+        }
+        
+        String seconds = totalMinutesString + lbClock.getText().substring(2);
+        
+        txtGoalTime.setText(totalMinutesString + seconds);
         
         List<String> playersNumberName = this.match.getAwayTeam().getPlayersNumberName();
         this.cmbGoalScorer.setItems(FXCollections.observableArrayList(playersNumberName));
@@ -763,5 +819,13 @@ public class FXMLController implements Initializable {
         this.cmbGoalAssistant2.setItems(FXCollections.observableArrayList(playersNumberName));
         
     }
-    
+
+    @FXML
+    private void saveMatchData(ActionEvent event) throws SQLException {
+        
+        MatchDao matchDao = new MatchDao(database);
+        matchDao.saveMatch(match);
+        
+    }
+        
 }

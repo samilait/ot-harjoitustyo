@@ -45,7 +45,7 @@ public class IcehockeyStatsTest {
         this.player = new Player("Sami", "Laitinen", 37, "OL", 1);
         this.team = new Team("Leijonat", true);
         Team away = new Team("Tre Kronor", false);
-        this.match = new Match(this.team, away);
+        this.match = new Match(1, this.team, away);
         this.clock = new Clock();        
     }
     

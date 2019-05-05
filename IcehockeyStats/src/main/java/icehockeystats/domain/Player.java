@@ -100,6 +100,10 @@ public class Player {
         this.saves++;
     }
     
+    public void addPenalty(Penalty penalty) {
+        this.penalties.add(penalty);
+    }
+    
     /**
      * Get total points
      * @return total points: goals + passes

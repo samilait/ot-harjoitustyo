@@ -39,10 +39,18 @@ public class Team {
     
     public void addGoal(String time, Player scorer, Player assistant1, Player assistant2, String type) {
         this.totalGoals++;
+        
+        scorer.addGoal();
+        assistant1.addPass();
+        assistant2.addPass();
+        
         this.goals.add(new Goal(this.totalGoals, time, scorer, assistant1, assistant2, type));
     }
 
     public void addPenalty(Player player, String code, String description, String min, String startTime, String endTime) {
+        
+        player.addPenalty(new Penalty(player, code, description, min, startTime, endTime));
+        
         this.penalties.add(new Penalty(player, code, description, min, startTime, endTime));
     }
     
