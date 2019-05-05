@@ -1,6 +1,12 @@
 package icehockeystats;
 
+import icehockeystats.dao.DataReader;
+import icehockeystats.dao.Database;
+import icehockeystats.dao.PenaltyDao;
 import icehockeystats.domain.Clock;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.concurrent.TimeUnit;
+
+import icehockeystats.dao.*;
+import java.sql.SQLException;
 
 
 public class MainApp extends Application {
@@ -33,8 +42,20 @@ public class MainApp extends Application {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, SQLException {
         launch(args);
+        
+//        String fileName = "penaltycodes.csv";
+//        DataReader reader = new DataReader(fileName);
+//        ArrayList<String> penalties = reader.loadPenalties();
+//        
+//        File tiedosto = new File("icehockeystat.db");        
+//        String dbName = "jdbc:sqlite:" ;
+//        Database db = new Database("jdbc:sqlite:" + tiedosto.getAbsolutePath());
+//        
+//        PenaltyDao penaltyDao = new PenaltyDao(db);
+//        penaltyDao.savePenaltyCodes(penalties);
+        
 //        Clock clock = new Clock();
 //        
 //        for(int i = 0; i < 10; i++) {

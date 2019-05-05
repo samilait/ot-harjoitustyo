@@ -5,11 +5,13 @@
  */
 package icehockeystats.dao;
 
+import icehockeystats.domain.Penalty;
 import icehockeystats.domain.Player;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -63,6 +65,23 @@ public class DataReader {
         BufferedReader br = new BufferedReader(new FileReader(this.fileName));
         
         return br.readLine();
+        
+    }
+    
+    public ArrayList<String> loadPenalties() throws FileNotFoundException, IOException {
+        
+        ArrayList<String> penalties = new ArrayList<>();
+        
+        BufferedReader br = new BufferedReader(new FileReader(this.fileName));
+        
+        String line;
+        String header = br.readLine();
+        
+        while ((line = br.readLine()) != null) {
+            penalties.add(line);
+        }
+        
+        return penalties;
         
     }
     

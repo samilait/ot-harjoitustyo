@@ -1,6 +1,8 @@
 package icehockeystats;
 
 import icehockeystats.dao.DataReader;
+import icehockeystats.dao.Database;
+import icehockeystats.dao.PenaltyDao;
 import icehockeystats.domain.Player;
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +18,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import icehockeystats.domain.*;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,6 +44,8 @@ import javafx.scene.layout.Pane;
 
 public class FXMLController implements Initializable {
     
+    private Database database;
+    private HashMap<String, String> penaltyCodeMap;
     private Clock clock;
     private boolean clockRunning;
     private Match match;
@@ -141,11 +149,54 @@ public class FXMLController implements Initializable {
     private Button btnGoalSave;
     @FXML
     private Button btnGoalCancel;
+    @FXML
+    private Button btnAddPenaltyHome;
+    @FXML
+    private Tab tabPenalty;
+    @FXML
+    private ComboBox<String> cmbPenaltyReceiver;
+    @FXML
+    private ComboBox<String> cmbPenaltyDescription;
+    @FXML
+    private TextField txtPenaltyDescription;
+    @FXML
+    private TextField txtPenaltyReceiver;
+    @FXML
+    private Label lbPenaltyTeam;
+    @FXML
+    private TextField txtPenaltyMin;
+    @FXML
+    private TextField txtPenaltyStart;
+    @FXML
+    private TextField txtPenaltyEnd;
+    @FXML
+    private Button btnSavePenalty;
+    @FXML
+    private Button btnCancelPenalty;
+    @FXML
+    private TableView<Penalty> tablePenaltyHome;
+    @FXML
+    private TableColumn<Penalty, Integer> penaltyRecieverColumnHome;
+    @FXML
+    private TableColumn<Penalty, String> penaltyMinColumnHome;
+    @FXML
+    private TableColumn<Penalty, String> penaltyCodeColumnHome;
+    @FXML
+    private TableColumn<Penalty, String> penaltyStartColumnHome;
+    @FXML
+    private TableColumn<Penalty, String> penaltyEndColumnHome;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+        File dbName = new File("icehockeystat.db");        
+        try {
+            this.database = new Database("jdbc:sqlite:" + dbName.getAbsolutePath());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         // Listeners for Goal input text fields
         this.txtGoalScorer.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -165,6 +216,21 @@ public class FXMLController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 selectGoalAssistant2(newValue);
+            }            
+        });
+        
+        // Listeners for Penalty input text fields
+        this.txtPenaltyReceiver.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                selectPenaltyReceiver(newValue);
+            }            
+        });
+        
+        this.txtPenaltyMin.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setPenaltyEndTime();
             }            
         });
 
@@ -266,6 +332,13 @@ public class FXMLController implements Initializable {
         this.assistant1ColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant1"));
         this.assistant2ColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, Integer>("assistant2"));
         this.goalTypeColumnHome.setCellValueFactory(new PropertyValueFactory<Goal, String>("type"));
+        
+        // Home team penalties
+        this.penaltyRecieverColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, Integer>("number"));
+        this.penaltyMinColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("min"));
+        this.penaltyCodeColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("code"));
+        this.penaltyStartColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("startTime"));
+        this.penaltyEndColumnHome.setCellValueFactory(new PropertyValueFactory<Penalty, String>("endTime"));
 
     }    
 
@@ -402,10 +475,128 @@ public class FXMLController implements Initializable {
         ObservableList<Goal> goals = FXCollections.observableList(this.match.getHomeTeam().getGoals());
         
         this.tableScoreHome.setItems(goals);
+        
+        this.tabMain.getSelectionModel().select(tabStatistics);
+
          
     }
 
     @FXML
     private void cancelGoal(ActionEvent event) {
+        
+        this.lbGoalTeam.setText("");
+        this.txtGoalAssistant1.setText("");
+        this.txtGoalAssistant2.setText("");
+        this.txtGoalScorer.setText("");
+        this.txtGoalTime.setText("");
+        this.txtGoalType.setText("");
+        
+        this.cmbGoalScorer.getItems().removeAll(this.cmbGoalScorer.getItems());
+        this.cmbGoalAssistant1.getItems().removeAll(this.cmbGoalAssistant1.getItems());
+        this.cmbGoalAssistant2.getItems().removeAll(this.cmbGoalAssistant2.getItems());
+        
+        this.tabMain.getSelectionModel().select(tabStatistics);
+        
     }
+    
+    private void selectPenaltyReceiver(String number) {
+        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        this.cmbPenaltyReceiver.getSelectionModel().select(player.toString());
+    }
+
+    private void selectPenaltyDescription(String number) {
+        Player player = this.match.getHomeTeam().getPlayer(Integer.parseInt(number));        
+        this.cmbPenaltyDescription.getSelectionModel().select(player.toString());
+    }
+    
+    private void setPenaltyEndTime() {
+        int penaltyMin = Integer.parseInt(this.txtPenaltyMin.getText());
+        int startMin = Integer.parseInt(this.lbClock.getText().substring(0, 2));
+        int endMin = startMin + penaltyMin;
+        
+        String endTime = "";
+        if (endMin < 10) {
+            endTime = "0" + endMin;
+        }
+        
+        String endSec = this.lbClock.getText().substring(2);
+        this.txtPenaltyEnd.setText(endTime + endSec);
+        
+    }
+
+    @FXML
+    private void addPenaltyHome(ActionEvent event) throws SQLException {
+
+        this.tabMain.getSelectionModel().select(tabPenalty);
+        
+        // Set team name
+        this.lbPenaltyTeam.setText(this.match.getHomeTeam().getName());
+        
+        // Set goal time
+        this.txtPenaltyStart.setText(lbClock.getText());
+        
+        List<String> playersNumberName = this.match.getHomeTeam().getPlayersNumberName();
+        this.cmbPenaltyReceiver.setItems(FXCollections.observableArrayList(playersNumberName));
+        
+        PenaltyDao penaltyDao = new PenaltyDao(database);
+        List<PenaltyCode> penaltyCodes = penaltyDao.findAll();
+        
+        this.penaltyCodeMap = new HashMap<>();
+        List<String> penaltyCodeNames = new ArrayList<>();
+        
+        for (int i = 0; i < penaltyCodes.size(); i++) {
+            penaltyCodeMap.put(penaltyCodes.get(i).toString(), penaltyCodes.get(i).getCode());
+            penaltyCodeNames.add(penaltyCodes.get(i).toString());
+        }
+        
+        this.cmbPenaltyDescription.setItems(FXCollections.observableArrayList(penaltyCodeNames));
+        
+    }
+
+    @FXML
+    private void setPenaltyCode(ActionEvent event) {
+        String description = this.cmbPenaltyDescription.getValue();
+        this.txtPenaltyDescription.setText(this.penaltyCodeMap.get(description));        
+    }
+
+    @FXML
+    private void savePenalty(ActionEvent event) throws SQLException {
+
+        int number = Integer.parseInt(this.txtPenaltyReceiver.getText());
+        String code = this.txtPenaltyDescription.getText();
+        PenaltyDao penaltyDao = new PenaltyDao(database);
+        String description = penaltyDao.findOne(code);
+        String min = this.txtPenaltyMin.getText();
+        String startTime = this.txtPenaltyStart.getText();
+        String endTime = this.txtPenaltyEnd.getText();
+        Player player = this.match.getHomeTeam().getPlayer(number);
+        
+        this.match.getHomeTeam().addPenalty(player, code, description, min, startTime, endTime);
+        
+        ObservableList<Penalty> penalties = FXCollections.observableList(this.match.getHomeTeam().getPenalties());
+        
+        this.tablePenaltyHome.setItems(penalties);
+        
+        this.tabMain.getSelectionModel().select(tabStatistics);
+
+        
+    }
+
+    @FXML
+    private void cancelPenalty(ActionEvent event) {
+
+        this.lbPenaltyTeam.setText("");
+        this.txtPenaltyReceiver.setText("");
+        this.txtPenaltyMin.setText("");
+        this.txtPenaltyDescription.setText("");
+        this.txtPenaltyStart.setText("");
+        this.txtPenaltyEnd.setText("");
+        
+        this.cmbPenaltyReceiver.getItems().removeAll(this.cmbPenaltyReceiver.getItems());
+        this.cmbPenaltyDescription.getItems().removeAll(this.cmbPenaltyDescription.getItems());
+        
+        this.tabMain.getSelectionModel().select(tabStatistics);
+
+    }
+    
 }

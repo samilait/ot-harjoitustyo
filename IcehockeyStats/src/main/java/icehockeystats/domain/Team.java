@@ -21,6 +21,7 @@ public class Team {
     private boolean home;
     private HashMap<Integer, Player> players;
     private List<Goal> goals;
+    private List<Penalty> penalties;
     private int totalGoals;
 
     public Team(String name, boolean home) {
@@ -28,6 +29,7 @@ public class Team {
         this.home = home;
         this.totalGoals = 0;
         this.goals = new ArrayList<>();
+        this.penalties = new ArrayList<>();
         this.players = new HashMap<>();        
     }
     
@@ -39,11 +41,19 @@ public class Team {
         this.totalGoals++;
         this.goals.add(new Goal(this.totalGoals, time, scorer, assistant1, assistant2, type));
     }
+
+    public void addPenalty(Player player, String code, String description, String min, String startTime, String endTime) {
+        this.penalties.add(new Penalty(player, code, description, min, startTime, endTime));
+    }
     
     public List<Goal> getGoals() {
         return this.goals;
     }
     
+    public List<Penalty> getPenalties() {
+        return this.penalties;
+    }
+        
     public int getTotalGoals() {
         return this.totalGoals;
     }

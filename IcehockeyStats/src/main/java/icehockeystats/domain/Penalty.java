@@ -11,18 +11,51 @@ package icehockeystats.domain;
  */
 public class Penalty {
 
-    private int code;
-    private String penaltyType;
-    private int minutes1;
-    private int minutes2;
-    private int player;
+    private String code;
+    private String description;
+    private String min;
+    private Player player;
+    private String startTime;
+    private String endTime;
 
-    public Penalty(int code, String penaltyType, int minutes1, int minutes2, int player) {
+    public Penalty(Player player, String code, String description, String min, String startTime, String endTime) {
         this.code = code;
-        this.penaltyType = penaltyType;
-        this.minutes1 = minutes1;
-        this.minutes2 = minutes2;
+        this.description = description;
+        this.min = min;
         this.player = player;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getMin() {
+        return min;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+    
+    public int getNumber() {
+        return this.player.getNumber();
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+    
+    
+    
     
 }
